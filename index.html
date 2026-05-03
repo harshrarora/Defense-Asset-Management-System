@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defense Asset Management System — DBMS Project</title>
+    <meta name="description" content="Secure Defense Asset Management and Lifecycle Tracking System. A comprehensive DBMS project demonstrating Oracle SQL, PL/SQL, normalization, and transaction management.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Prism.js (SQL syntax highlighting) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/toolbar/prism-toolbar.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+    <!-- Mermaid.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.0/mermaid.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ============================================ -->
+    <!-- NAVIGATION -->
+    <!-- ============================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-brand">
+            <span class="nav-icon">◆</span>
+            <span class="nav-title">DAMS</span>
+        </div>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#hero">Overview</a></li>
+            <li><a href="#database">Database</a></li>
+            <li><a href="#inventory">Inventory</a></li>
+            <li><a href="#showcase">SQL/PL-SQL</a></li>
+            <li><a href="#analytics">Analytics</a></li>
+        </ul>
+    </nav>
+
+    <!-- ============================================ -->
+    <!-- SECTION 1: HERO -->
+    <!-- ============================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-content">
+            <div class="hero-badge">DBMS Project — Oracle SQL & PL/SQL</div>
+            <h1 class="hero-title">
+                <span class="gradient-text">Secure Defense Asset</span><br>
+                Management System
+            </h1>
+            <p class="hero-subtitle">
+                A comprehensive database system for tracking high-value defense assets throughout their lifecycle —
+                from acquisition and allocation to maintenance and decommissioning. Built with Oracle SQL &amp; PL/SQL
+                demonstrating relational modeling, normalization, transactions, and automation.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">10</span>
+                    <span class="stat-label">Tables</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">257</span>
+                    <span class="stat-label">Data Rows</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">16</span>
+                    <span class="stat-label">SQL Queries</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">23</span>
+                    <span class="stat-label">PL/SQL Objects</span>
+                </div>
+            </div>
+            <div class="hero-pills">
+                <span class="pill">Oracle SQL</span>
+                <span class="pill">PL/SQL</span>
+                <span class="pill">3NF / BCNF</span>
+                <span class="pill">ACID Transactions</span>
+                <span class="pill">Triggers</span>
+                <span class="pill">Cursors</span>
+                <span class="pill pill-sdg">SDG-16: Peace & Justice</span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll to explore</span>
+            <div class="scroll-arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECTION 2: DATABASE DESIGN -->
+    <!-- ============================================ -->
+    <section class="section" id="database">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Database Design</span>
+                <h2 class="section-title">Entity-Relationship Model</h2>
+                <p class="section-desc">The conceptual ER model was first designed using classical Chen notation and later transformed into a normalized relational schema for Oracle implementation.</p>
+            </div>
+
+            <!-- 1. Conceptual ER Diagram (Chen Notation) -->
+            <h3 class="diagram-label">Conceptual ER Diagram <span class="diagram-label-sub">— Chen Notation</span></h3>
+            <div class="er-container glass-card">
+                <div class="er-diagram" id="chenDiagramContainer">
+                    <!-- Generated by er_diagram.js -->
+                </div>
+            </div>
+
+            <div class="er-legend glass-card">
+                <div class="legend-item"><span class="legend-rect"></span> Entity</div>
+                <div class="legend-item"><span class="legend-oval"></span> Attribute</div>
+                <div class="legend-item"><span class="legend-oval legend-pk"></span> Primary Key</div>
+                <div class="legend-item"><span class="legend-diamond"></span> Relationship</div>
+                <div class="legend-item"><span class="legend-card">1, N, M</span> Cardinality</div>
+            </div>
+
+            <!-- 2. Implementation Relational Schema (Crow's Foot) -->
+            <h3 class="diagram-label" style="margin-top:56px">Implementation Relational Schema <span class="diagram-label-sub">— Crow's Foot Notation</span></h3>
+            <div class="er-container glass-card">
+                <div class="er-diagram">
+                    <pre class="mermaid">
+erDiagram
+    MANUFACTURER ||--o{ WEAPON_MODEL : "produces"
+    MANUFACTURER ||--o{ AMMUNITION_TYPE : "supplies"
+    WEAPON_MODEL ||--o{ WEAPON : "has instances"
+    WEAPON_MODEL ||--o{ AMMO_COMPATIBILITY : "compatible with"
+    AMMUNITION_TYPE ||--o{ AMMO_COMPATIBILITY : "used in"
+    UNIT ||--o{ WEAPON : "houses"
+    UNIT ||--o{ CUSTODIAN : "has members"
+    UNIT ||--o{ CUSTODY_HISTORY : "receives"
+    CUSTODIAN ||--o{ CUSTODY_HISTORY : "holds"
+    WEAPON ||--o{ CUSTODY_HISTORY : "transferred via"
+    WEAPON ||--o{ MAINTENANCE_RECORD : "serviced by"
+    CUSTODIAN ||--o{ MAINTENANCE_RECORD : "performs"
+
+    MANUFACTURER {
+        NUMBER manufacturer_id PK
+        VARCHAR2 company_name UK
+        VARCHAR2 country
+        VARCHAR2 certification_status
+    }
+    WEAPON_MODEL {
+        NUMBER model_id PK
+        NUMBER manufacturer_id FK
+        VARCHAR2 model_name
+        VARCHAR2 weapon_type
+        VARCHAR2 caliber
+    }
+    WEAPON {
+        NUMBER weapon_id PK
+        NUMBER model_id FK
+        VARCHAR2 serial_number UK
+        DATE manufacture_date
+        VARCHAR2 current_status
+        NUMBER current_location_id FK
+        NUMBER total_rounds_fired
+        NUMBER reliability_score
+    }
+    UNIT {
+        NUMBER unit_id PK
+        VARCHAR2 unit_name UK
+        VARCHAR2 base_location
+        NUMBER commanding_officer_id FK
+    }
+    CUSTODIAN {
+        NUMBER custodian_id PK
+        VARCHAR2 full_name
+        VARCHAR2 rank
+        NUMBER unit_id FK
+        NUMBER clearance_level
+    }
+    CUSTODY_HISTORY {
+        NUMBER custody_id PK
+        NUMBER weapon_id FK
+        NUMBER custodian_id FK
+        NUMBER unit_id FK
+        DATE transfer_date
+        NUMBER authorized_by FK
+    }
+    MAINTENANCE_RECORD {
+        NUMBER maintenance_id PK
+        NUMBER weapon_id FK
+        DATE scheduled_date
+        DATE completed_date
+        NUMBER technician_id FK
+        VARCHAR2 maintenance_type
+    }
+    AMMUNITION_TYPE {
+        NUMBER ammo_id PK
+        VARCHAR2 caliber
+        VARCHAR2 ammo_name
+        NUMBER manufacturer_id FK
+        NUMBER stock_quantity
+        DATE expiry_date
+    }
+    AMMO_COMPATIBILITY {
+        NUMBER compatibility_id PK
+        NUMBER model_id FK
+        NUMBER ammo_id FK
+        NUMBER effectiveness_rating
+    }
+    AUDIT_LOG {
+        NUMBER log_id PK
+        VARCHAR2 table_name
+        VARCHAR2 operation_type
+        VARCHAR2 changed_by
+        TIMESTAMP change_timestamp
+    }
+                    </pre>
+                </div>
+            </div>
+
+            <!-- Schema Summary -->
+            <div class="schema-grid">
+                <div class="schema-card glass-card" data-aos="fade-up">
+                    <div class="schema-icon">🔷</div>
+                    <h3>1NF</h3>
+                    <p>All attributes are atomic. No repeating groups. Each row is uniquely identifiable via primary keys.</p>
+                </div>
+                <div class="schema-card glass-card" data-aos="fade-up">
+                    <div class="schema-icon">🔶</div>
+                    <h3>2NF</h3>
+                    <p>No partial dependencies. All non-key attributes fully depend on the entire primary key.</p>
+                </div>
+                <div class="schema-card glass-card" data-aos="fade-up">
+                    <div class="schema-icon">🔹</div>
+                    <h3>3NF / BCNF</h3>
+                    <p>No transitive dependencies. Manufacturer details separated from weapon data. Every determinant is a candidate key.</p>
+                </div>
+            </div>
+
+            <!-- Table Summary -->
+            <div class="table-summary glass-card">
+                <h3>Schema Summary — 10 Tables</h3>
+                <div class="table-responsive">
+                    <table class="data-table schema-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Table</th>
+                                <th>Rows</th>
+                                <th>PK</th>
+                                <th>Foreign Keys</th>
+                                <th>Constraints</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1</td><td>MANUFACTURER</td><td>10</td><td>manufacturer_id</td><td>—</td><td>UNIQUE, CHECK</td></tr>
+                            <tr><td>2</td><td>WEAPON_MODEL</td><td>20</td><td>model_id</td><td>manufacturer_id</td><td>CHECK (weapon_type)</td></tr>
+                            <tr><td>3</td><td>UNIT</td><td>12</td><td>unit_id</td><td>commanding_officer_id</td><td>UNIQUE</td></tr>
+                            <tr><td>4</td><td>CUSTODIAN</td><td>30</td><td>custodian_id</td><td>unit_id</td><td>CHECK (clearance 1-5)</td></tr>
+                            <tr><td>5</td><td>WEAPON</td><td>50</td><td>weapon_id</td><td>model_id, location_id</td><td>UNIQUE serial, CHECK</td></tr>
+                            <tr><td>6</td><td>CUSTODY_HISTORY</td><td>40</td><td>custody_id</td><td>weapon, custodian, unit, auth</td><td>—</td></tr>
+                            <tr><td>7</td><td>MAINTENANCE_RECORD</td><td>35</td><td>maintenance_id</td><td>weapon_id, technician_id</td><td>CHECK (type, dates)</td></tr>
+                            <tr><td>8</td><td>AMMUNITION_TYPE</td><td>15</td><td>ammo_id</td><td>manufacturer_id</td><td>CHECK (stock ≥ 0)</td></tr>
+                            <tr><td>9</td><td>AMMO_COMPATIBILITY</td><td>25</td><td>compatibility_id</td><td>model_id, ammo_id</td><td>UNIQUE(model,ammo)</td></tr>
+                            <tr><td>10</td><td>AUDIT_LOG</td><td>20</td><td>log_id</td><td>—</td><td>CHECK (operation)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECTION 3: WEAPON INVENTORY -->
+    <!-- ============================================ -->
+    <section class="section section-alt" id="inventory">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Live Data</span>
+                <h2 class="section-title">Weapon Inventory Dashboard</h2>
+                <p class="section-desc">Interactive view of all 50 registered weapons. Search, filter, and sort the inventory.</p>
+            </div>
+
+            <!-- Controls -->
+            <div class="inventory-controls glass-card">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search by serial, model, or unit..." autocomplete="off">
+                </div>
+                <div class="filter-group">
+                    <select id="statusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="In Maintenance">In Maintenance</option>
+                        <option value="In Storage">In Storage</option>
+                        <option value="In Transit">In Transit</option>
+                        <option value="Decommissioned">Decommissioned</option>
+                    </select>
+                    <select id="typeFilter">
+                        <option value="">All Types</option>
+                        <option value="Assault Rifle">Assault Rifle</option>
+                        <option value="Battle Rifle">Battle Rifle</option>
+                        <option value="Sniper Rifle">Sniper Rifle</option>
+                        <option value="Pistol">Pistol</option>
+                        <option value="SMG">SMG</option>
+                        <option value="LMG">LMG</option>
+                        <option value="GPMG">GPMG</option>
+                        <option value="Shotgun">Shotgun</option>
+                    </select>
+                </div>
+                <div class="inventory-count">Showing <span id="rowCount">50</span> of 50 weapons</div>
+            </div>
+
+            <!-- Table -->
+            <div class="inventory-table-wrap glass-card">
+                <div class="table-responsive">
+                    <table class="data-table" id="inventoryTable">
+                        <thead>
+                            <tr>
+                                <th data-sort="id">ID ↕</th>
+                                <th data-sort="serial">Serial No. ↕</th>
+                                <th data-sort="model">Model ↕</th>
+                                <th data-sort="type">Type ↕</th>
+                                <th data-sort="status">Status ↕</th>
+                                <th data-sort="unit">Unit ↕</th>
+                                <th data-sort="rounds">Rounds Fired ↕</th>
+                                <th data-sort="reliability">Reliability ↕</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECTION 4: SQL & PL/SQL SHOWCASE -->
+    <!-- ============================================ -->
+    <section class="section" id="showcase">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Implementation</span>
+                <h2 class="section-title">SQL &amp; PL/SQL Showcase</h2>
+                <p class="section-desc">Explore the actual SQL queries, stored procedures, functions, triggers, cursors, and transaction management code.</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="showcase-tabs">
+                <button class="tab-btn active" data-tab="queries">Queries</button>
+                <button class="tab-btn" data-tab="procedures">Procedures</button>
+                <button class="tab-btn" data-tab="functions">Functions</button>
+                <button class="tab-btn" data-tab="triggers">Triggers</button>
+                <button class="tab-btn" data-tab="cursors">Cursors</button>
+                <button class="tab-btn" data-tab="transactions">Transactions</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content active" id="tab-queries">
+                <div class="showcase-grid" id="queriesGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            <div class="tab-content" id="tab-procedures">
+                <div class="showcase-grid" id="proceduresGrid"></div>
+            </div>
+            <div class="tab-content" id="tab-functions">
+                <div class="showcase-grid" id="functionsGrid"></div>
+            </div>
+            <div class="tab-content" id="tab-triggers">
+                <div class="showcase-grid" id="triggersGrid"></div>
+            </div>
+            <div class="tab-content" id="tab-cursors">
+                <div class="showcase-grid" id="cursorsGrid"></div>
+            </div>
+            <div class="tab-content" id="tab-transactions">
+                <div class="showcase-grid" id="transactionsGrid"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECTION 5: ANALYTICS -->
+    <!-- ============================================ -->
+    <section class="section section-alt" id="analytics">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Analytics</span>
+                <h2 class="section-title">Data Insights Dashboard</h2>
+                <p class="section-desc">Visualizations derived from the 257 rows of actual database records.</p>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card glass-card">
+                    <h3>Weapons by Status</h3>
+                    <div class="chart-wrap"><canvas id="chartStatus"></canvas></div>
+                </div>
+                <div class="chart-card glass-card">
+                    <h3>Weapons per Unit</h3>
+                    <div class="chart-wrap"><canvas id="chartUnits"></canvas></div>
+                </div>
+                <div class="chart-card glass-card">
+                    <h3>Avg Reliability by Type</h3>
+                    <div class="chart-wrap"><canvas id="chartReliability"></canvas></div>
+                </div>
+                <div class="chart-card glass-card">
+                    <h3>Ammunition Stock Levels</h3>
+                    <div class="chart-wrap"><canvas id="chartAmmo"></canvas></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- SECTION 6: FOOTER -->
+    <!-- ============================================ -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3><span class="nav-icon">◆</span> DAMS</h3>
+                    <p>Defense Asset Management System — A DBMS course project demonstrating Oracle SQL, PL/SQL, normalization, and ACID-compliant transaction management.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Technologies</h3>
+                    <ul>
+                        <li>Oracle Database / Live SQL</li>
+                        <li>SQL &amp; PL/SQL</li>
+                        <li>3NF / BCNF Normalization</li>
+                        <li>ACID Transactions</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Project Links</h3>
+                    <ul>
+                        <li><a href="sql/01_ddl_tables.sql">DDL Schema</a></li>
+                        <li><a href="sql/04_sql_queries.sql">SQL Queries</a></li>
+                        <li><a href="sql/06_plsql_procedures.sql">PL/SQL Procedures</a></li>
+                        <li><a href="sql/08_plsql_triggers.sql">Triggers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Team</h3>
+                    <p class="team-placeholder">Team member names<br>College Name<br>Course &amp; Section</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built with Oracle SQL &amp; PL/SQL &nbsp;•&nbsp; SDG-16: Peace, Justice &amp; Strong Institutions</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS -->
+    <!-- ============================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-plsql.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/er_diagram.js"></script>
+    <script src="js/charts.js"></script>
+</body>
+</html>
