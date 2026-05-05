@@ -23,7 +23,7 @@ A DBMS mini-project developed using Oracle SQL and PL/SQL for tracking defense a
 - /assets → Screenshots and diagrams
 - /css, /js → Website frontend
 - index.html → Main dashboard
-- Final_Report.pdf → Project report
+- DBMS_Project_Report.pdf → Project report
 
 ## How to Run
 
